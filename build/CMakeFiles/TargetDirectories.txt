@@ -1,0 +1,3 @@
+/root/cc_project/build/CMakeFiles/rebuild_cache.dir
+/root/cc_project/build/CMakeFiles/sunnet.dir
+/root/cc_project/build/CMakeFiles/edit_cache.dir

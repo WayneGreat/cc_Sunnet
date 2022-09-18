@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Sunnet.h
+
+../include/cat.h
+
+/root/cc_project/src/Sunnet.cpp
+iostream
+-
+Sunnet.h
+/root/cc_project/src/Sunnet.h
+
+/root/cc_project/src/cat.cpp
+iostream
+-
+cat.h
+/root/cc_project/src/cat.h
+
+/root/cc_project/src/main.cpp
+iostream
+-
+Sunnet.h
+/root/cc_project/src/Sunnet.h
+
