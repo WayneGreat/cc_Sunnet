@@ -10,3 +10,6 @@ aux_source_directory(./src DIR_SRCS)
 add_definitions(-std=c++11)
 # 指定生成目标文件
 add_executable(sunnet ${DIR_SRCS})
+# 库文件
+find_package(Threads)
+target_link_libraries(sunnet ${CMAKE_THREAD_LIBS_INIT}) #括号里面需要大写

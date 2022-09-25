@@ -150,6 +150,33 @@ src/Sunnet.cpp.s:
 	$(MAKE) -f CMakeFiles/sunnet.dir/build.make CMakeFiles/sunnet.dir/src/Sunnet.cpp.s
 .PHONY : src/Sunnet.cpp.s
 
+src/Worker.o: src/Worker.cpp.o
+
+.PHONY : src/Worker.o
+
+# target to build an object file
+src/Worker.cpp.o:
+	$(MAKE) -f CMakeFiles/sunnet.dir/build.make CMakeFiles/sunnet.dir/src/Worker.cpp.o
+.PHONY : src/Worker.cpp.o
+
+src/Worker.i: src/Worker.cpp.i
+
+.PHONY : src/Worker.i
+
+# target to preprocess a source file
+src/Worker.cpp.i:
+	$(MAKE) -f CMakeFiles/sunnet.dir/build.make CMakeFiles/sunnet.dir/src/Worker.cpp.i
+.PHONY : src/Worker.cpp.i
+
+src/Worker.s: src/Worker.cpp.s
+
+.PHONY : src/Worker.s
+
+# target to generate assembly for a file
+src/Worker.cpp.s:
+	$(MAKE) -f CMakeFiles/sunnet.dir/build.make CMakeFiles/sunnet.dir/src/Worker.cpp.s
+.PHONY : src/Worker.cpp.s
+
 src/cat.o: src/cat.cpp.o
 
 .PHONY : src/cat.o
@@ -216,6 +243,9 @@ help:
 	@echo "... src/Sunnet.o"
 	@echo "... src/Sunnet.i"
 	@echo "... src/Sunnet.s"
+	@echo "... src/Worker.o"
+	@echo "... src/Worker.i"
+	@echo "... src/Worker.s"
 	@echo "... src/cat.o"
 	@echo "... src/cat.i"
 	@echo "... src/cat.s"

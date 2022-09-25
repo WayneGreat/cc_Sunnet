@@ -3,10 +3,15 @@
 
 CMakeFiles/sunnet.dir/src/Sunnet.cpp.o
  ../include/Sunnet.h
+ ../include/Worker.h
  /root/cc_project/src/Sunnet.cpp
+CMakeFiles/sunnet.dir/src/Worker.cpp.o
+ ../include/Worker.h
+ /root/cc_project/src/Worker.cpp
 CMakeFiles/sunnet.dir/src/cat.cpp.o
  ../include/cat.h
  /root/cc_project/src/cat.cpp
 CMakeFiles/sunnet.dir/src/main.cpp.o
  ../include/Sunnet.h
+ ../include/Worker.h
  /root/cc_project/src/main.cpp
