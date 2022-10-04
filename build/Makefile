@@ -231,6 +231,33 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/sunnet.dir/build.make CMakeFiles/sunnet.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/service.o: src/service.cpp.o
+
+.PHONY : src/service.o
+
+# target to build an object file
+src/service.cpp.o:
+	$(MAKE) -f CMakeFiles/sunnet.dir/build.make CMakeFiles/sunnet.dir/src/service.cpp.o
+.PHONY : src/service.cpp.o
+
+src/service.i: src/service.cpp.i
+
+.PHONY : src/service.i
+
+# target to preprocess a source file
+src/service.cpp.i:
+	$(MAKE) -f CMakeFiles/sunnet.dir/build.make CMakeFiles/sunnet.dir/src/service.cpp.i
+.PHONY : src/service.cpp.i
+
+src/service.s: src/service.cpp.s
+
+.PHONY : src/service.s
+
+# target to generate assembly for a file
+src/service.cpp.s:
+	$(MAKE) -f CMakeFiles/sunnet.dir/build.make CMakeFiles/sunnet.dir/src/service.cpp.s
+.PHONY : src/service.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -252,6 +279,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/service.o"
+	@echo "... src/service.i"
+	@echo "... src/service.s"
 .PHONY : help
 
 

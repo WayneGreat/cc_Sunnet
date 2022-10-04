@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/root/cc_project/src/Worker.cpp" "/root/cc_project/build/CMakeFiles/sunnet.dir/src/Worker.cpp.o"
   "/root/cc_project/src/cat.cpp" "/root/cc_project/build/CMakeFiles/sunnet.dir/src/cat.cpp.o"
   "/root/cc_project/src/main.cpp" "/root/cc_project/build/CMakeFiles/sunnet.dir/src/main.cpp.o"
+  "/root/cc_project/src/service.cpp" "/root/cc_project/build/CMakeFiles/sunnet.dir/src/service.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

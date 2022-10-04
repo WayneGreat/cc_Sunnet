@@ -15,6 +15,8 @@ Sunnet::Sunnet() {
 //开启系统
 void Sunnet::Start() {
     // cout << "Hello Sunnet" << endl;
+    //锁
+    pthread_rwlock_init(&servicesLock, NULL);
     //开启Worker
     StartWorker();
 }
@@ -38,4 +40,49 @@ void Sunnet::Wait() {
     if (workerThreads[0]) {
         workerThreads[0]->join();
     }
+}
+
+//新建服务
+uint32_t Sunnet::NewService(shared_ptr<string> type) {
+    auto srv = make_shared<Service>();
+    pthread_rwlock_wrlock(&servicesLock);
+    {
+        srv->id = maxId;
+        maxId++;
+        services.emplace(srv->id, srv); //构造及插入一个元素
+    }
+    pthread_rwlock_unlock(&servicesLock);
+    srv->Oninit(); //初始化
+    return srv->id;
+}
+
+//由id查找服务
+shared_ptr<Service> Sunnet::GetService(uint32_t id) {
+    shared_ptr<Service> srv = NULL;
+    pthread_rwlock_rdlock(&servicesLock);
+    {
+        unordered_map<uint32_t, shared_ptr<Service>>::iterator iter = services.find(id);
+        if (iter != services.end()) {
+            srv = iter->second;
+        }
+    }
+    pthread_rwlock_unlock(&servicesLock);
+    return srv;
+}
+
+//删除服务
+void Sunnet::KillService(uint32_t id) {
+    shared_ptr<Service> srv = GetService(id);
+    if (!srv) {
+        return;
+    }
+    //退出前
+    srv->OnExit();
+    srv->isExiting = true; // 防止服务切断联系后有其他服务再发消息
+    //删列表
+    pthread_rwlock_wrlock(&servicesLock);
+    {
+        services.erase(id); //删除元素
+    }
+    pthread_rwlock_unlock(&servicesLock);
 }

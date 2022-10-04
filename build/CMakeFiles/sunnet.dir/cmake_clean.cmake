@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/sunnet.dir/src/Worker.cpp.o"
   "CMakeFiles/sunnet.dir/src/cat.cpp.o"
   "CMakeFiles/sunnet.dir/src/main.cpp.o"
+  "CMakeFiles/sunnet.dir/src/service.cpp.o"
   "sunnet.pdb"
   "sunnet"
 )
