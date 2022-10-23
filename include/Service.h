@@ -28,6 +28,12 @@ public:
     //执行消息
     bool ProcessMsg();
     void ProcessMsgs(int max);
+public:
+    //标记是否在全局队列中，true：表示在队列中，或正在处理
+    bool inGlobal = false;
+    pthread_spinlock_t inGlobalLock;
+    //线程安全地设置inGlobal
+    void SetInGlobal(bool isIn);
 private:
     //取出一条消息
     shared_ptr<BaseMsg> PopMsg();

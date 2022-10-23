@@ -31,6 +31,10 @@ unordered_map
 ../include/Worker.h
 thread
 -
+Sunnet.h
+../include/Sunnet.h
+Service.h
+../include/Service.h
 
 ../include/cat.h
 
@@ -47,6 +51,8 @@ unistd.h
 -
 Worker.h
 /root/cc_project/src/Worker.h
+Service.h
+/root/cc_project/src/Service.h
 
 /root/cc_project/src/cat.cpp
 iostream

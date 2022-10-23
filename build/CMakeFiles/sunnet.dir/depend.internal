@@ -8,6 +8,9 @@ CMakeFiles/sunnet.dir/src/Sunnet.cpp.o
  ../include/Worker.h
  /root/cc_project/src/Sunnet.cpp
 CMakeFiles/sunnet.dir/src/Worker.cpp.o
+ ../include/Msg.h
+ ../include/Service.h
+ ../include/Sunnet.h
  ../include/Worker.h
  /root/cc_project/src/Worker.cpp
 CMakeFiles/sunnet.dir/src/cat.cpp.o

@@ -5,10 +5,12 @@
 Service::Service() {
     //初始化锁
     pthread_spin_init(&queueLock, PTHREAD_PROCESS_PRIVATE);
+    pthread_spin_init(&inGlobalLock, PTHREAD_PROCESS_PRIVATE);
 }
 
 Service::~Service() {
     pthread_spin_destroy(&queueLock);
+    pthread_spin_destroy(&inGlobalLock);
 }
 
 //插入消息
@@ -44,7 +46,19 @@ void Service::Oninit() {
 
 //收到消息时触发
 void Service::OnMsg(shared_ptr<BaseMsg> msg) {
-    cout << "[" << id << "] OnMsg" << endl;
+    //测试用
+    if (msg->type == BaseMsg::TYPE::SERVICE) {
+        auto m = dynamic_pointer_cast<ServiceMsg>(msg);
+        cout << "[" << id << "] OnMsg " << m->buff <<endl;
+
+        auto msgRet = Sunnet::inst->MakeMsg(
+            id, new char[9999999]{'p', 'i', 'n', 'g', '\0'}, 9999999);
+
+        Sunnet::inst->Send(m->source, msgRet);
+    }
+    else {
+        cout << "[" << id << "] OnMsg" << endl;
+    }
 }
 
 //退出服务时触发
@@ -72,4 +86,12 @@ void Service::ProcessMsgs(int max) {
             break;
         }
     }
+}
+
+void Service::SetInGlobal(bool isIn) {
+    pthread_spin_lock(&inGlobalLock);
+    {
+        inGlobal = isIn;
+    }
+    pthread_spin_unlock(&inGlobalLock);
 }

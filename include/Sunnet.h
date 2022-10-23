@@ -7,6 +7,9 @@
 // 全局唯一，可代表整个系统
 //一套Actor系统包含多个服务，Sunnet::inst管理着它们
 
+//Sunnet与Worker相互引用，需要在双方头文件中前置声明
+class Worker;
+
 class Sunnet
 {
 public:
@@ -29,6 +32,19 @@ public:
     //增删服务
     uint32_t NewService(shared_ptr<string> type);
     void KillService(uint32_t id); //仅限服务自己调用
+public:
+    //发送消息
+    void Send(uint32_t toId, shared_ptr<BaseMsg> msg);
+    //全局队列操作
+    shared_ptr<Service> PopGlobalQueue();
+    void PushGlobalQueue(shared_ptr<Service> srv);
+public:
+    shared_ptr<BaseMsg> MakeMsg(uint32_t source, char* buff, int len);
+public:
+    //唤醒工作线程
+    void CheckAndWeakUp();
+    //让工作线程等待（仅工作线程调用）
+    void WorkerWait();
 private:
     //工作线程
     int WORKER_NUM = 3;             //工作线程数
@@ -40,4 +56,13 @@ private:
 private:
     //获取服务
     shared_ptr<Service> GetService(uint32_t id);
+private:
+    queue<shared_ptr<Service>> globalQueue;
+    int globalLen = 0;             //队列长度
+    pthread_spinlock_t globalLock; //锁
+private:
+    //休眠和唤醒
+    pthread_mutex_t sleepMtx; //互斥锁
+    pthread_cond_t sleepCond; //条件变量
+    int sleepCount = 0;       //休眠工作线程数
 };
