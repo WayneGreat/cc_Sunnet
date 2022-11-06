@@ -57,9 +57,33 @@ include CMakeFiles/sunnet.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/sunnet.dir/flags.make
 
+CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o: CMakeFiles/sunnet.dir/flags.make
+CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o: ../src/SocketWorker.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/cc_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o -c /root/cc_project/src/SocketWorker.cpp
+
+CMakeFiles/sunnet.dir/src/SocketWorker.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sunnet.dir/src/SocketWorker.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/cc_project/src/SocketWorker.cpp > CMakeFiles/sunnet.dir/src/SocketWorker.cpp.i
+
+CMakeFiles/sunnet.dir/src/SocketWorker.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sunnet.dir/src/SocketWorker.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/cc_project/src/SocketWorker.cpp -o CMakeFiles/sunnet.dir/src/SocketWorker.cpp.s
+
+CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o.requires:
+
+.PHONY : CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o.requires
+
+CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o.provides: CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o.requires
+	$(MAKE) -f CMakeFiles/sunnet.dir/build.make CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o.provides.build
+.PHONY : CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o.provides
+
+CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o.provides.build: CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o
+
+
 CMakeFiles/sunnet.dir/src/Sunnet.cpp.o: CMakeFiles/sunnet.dir/flags.make
 CMakeFiles/sunnet.dir/src/Sunnet.cpp.o: ../src/Sunnet.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/cc_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/sunnet.dir/src/Sunnet.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/cc_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sunnet.dir/src/Sunnet.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sunnet.dir/src/Sunnet.cpp.o -c /root/cc_project/src/Sunnet.cpp
 
 CMakeFiles/sunnet.dir/src/Sunnet.cpp.i: cmake_force
@@ -83,7 +107,7 @@ CMakeFiles/sunnet.dir/src/Sunnet.cpp.o.provides.build: CMakeFiles/sunnet.dir/src
 
 CMakeFiles/sunnet.dir/src/Worker.cpp.o: CMakeFiles/sunnet.dir/flags.make
 CMakeFiles/sunnet.dir/src/Worker.cpp.o: ../src/Worker.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/cc_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sunnet.dir/src/Worker.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/cc_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sunnet.dir/src/Worker.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sunnet.dir/src/Worker.cpp.o -c /root/cc_project/src/Worker.cpp
 
 CMakeFiles/sunnet.dir/src/Worker.cpp.i: cmake_force
@@ -107,7 +131,7 @@ CMakeFiles/sunnet.dir/src/Worker.cpp.o.provides.build: CMakeFiles/sunnet.dir/src
 
 CMakeFiles/sunnet.dir/src/cat.cpp.o: CMakeFiles/sunnet.dir/flags.make
 CMakeFiles/sunnet.dir/src/cat.cpp.o: ../src/cat.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/cc_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sunnet.dir/src/cat.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/cc_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sunnet.dir/src/cat.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sunnet.dir/src/cat.cpp.o -c /root/cc_project/src/cat.cpp
 
 CMakeFiles/sunnet.dir/src/cat.cpp.i: cmake_force
@@ -131,7 +155,7 @@ CMakeFiles/sunnet.dir/src/cat.cpp.o.provides.build: CMakeFiles/sunnet.dir/src/ca
 
 CMakeFiles/sunnet.dir/src/main.cpp.o: CMakeFiles/sunnet.dir/flags.make
 CMakeFiles/sunnet.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/cc_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sunnet.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/cc_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/sunnet.dir/src/main.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sunnet.dir/src/main.cpp.o -c /root/cc_project/src/main.cpp
 
 CMakeFiles/sunnet.dir/src/main.cpp.i: cmake_force
@@ -155,7 +179,7 @@ CMakeFiles/sunnet.dir/src/main.cpp.o.provides.build: CMakeFiles/sunnet.dir/src/m
 
 CMakeFiles/sunnet.dir/src/service.cpp.o: CMakeFiles/sunnet.dir/flags.make
 CMakeFiles/sunnet.dir/src/service.cpp.o: ../src/service.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/cc_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/sunnet.dir/src/service.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/cc_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/sunnet.dir/src/service.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sunnet.dir/src/service.cpp.o -c /root/cc_project/src/service.cpp
 
 CMakeFiles/sunnet.dir/src/service.cpp.i: cmake_force
@@ -179,6 +203,7 @@ CMakeFiles/sunnet.dir/src/service.cpp.o.provides.build: CMakeFiles/sunnet.dir/sr
 
 # Object files for target sunnet
 sunnet_OBJECTS = \
+"CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o" \
 "CMakeFiles/sunnet.dir/src/Sunnet.cpp.o" \
 "CMakeFiles/sunnet.dir/src/Worker.cpp.o" \
 "CMakeFiles/sunnet.dir/src/cat.cpp.o" \
@@ -188,6 +213,7 @@ sunnet_OBJECTS = \
 # External object files for target sunnet
 sunnet_EXTERNAL_OBJECTS =
 
+sunnet: CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o
 sunnet: CMakeFiles/sunnet.dir/src/Sunnet.cpp.o
 sunnet: CMakeFiles/sunnet.dir/src/Worker.cpp.o
 sunnet: CMakeFiles/sunnet.dir/src/cat.cpp.o
@@ -195,7 +221,7 @@ sunnet: CMakeFiles/sunnet.dir/src/main.cpp.o
 sunnet: CMakeFiles/sunnet.dir/src/service.cpp.o
 sunnet: CMakeFiles/sunnet.dir/build.make
 sunnet: CMakeFiles/sunnet.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/cc_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable sunnet"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/cc_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable sunnet"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sunnet.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -203,6 +229,7 @@ CMakeFiles/sunnet.dir/build: sunnet
 
 .PHONY : CMakeFiles/sunnet.dir/build
 
+CMakeFiles/sunnet.dir/requires: CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o.requires
 CMakeFiles/sunnet.dir/requires: CMakeFiles/sunnet.dir/src/Sunnet.cpp.o.requires
 CMakeFiles/sunnet.dir/requires: CMakeFiles/sunnet.dir/src/Worker.cpp.o.requires
 CMakeFiles/sunnet.dir/requires: CMakeFiles/sunnet.dir/src/cat.cpp.o.requires

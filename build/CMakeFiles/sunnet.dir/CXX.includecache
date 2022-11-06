@@ -18,6 +18,8 @@ thread
 Msg.h
 ../include/Msg.h
 
+../include/SocketWorker.h
+
 ../include/Sunnet.h
 vector
 -
@@ -27,6 +29,8 @@ Service.h
 ../include/Service.h
 unordered_map
 -
+SocketWorker.h
+../include/SocketWorker.h
 
 ../include/Worker.h
 thread
@@ -37,6 +41,14 @@ Service.h
 ../include/Service.h
 
 ../include/cat.h
+
+/root/cc_project/src/SocketWorker.cpp
+SocketWorker.h
+/root/cc_project/src/SocketWorker.h
+iostream
+-
+unistd.h
+-
 
 /root/cc_project/src/Sunnet.cpp
 iostream

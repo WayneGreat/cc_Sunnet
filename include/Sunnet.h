@@ -3,6 +3,8 @@
 #include "Worker.h"
 #include "Service.h"
 #include <unordered_map>
+#include "SocketWorker.h"
+#include "Conn.h"
 
 // 全局唯一，可代表整个系统
 //一套Actor系统包含多个服务，Sunnet::inst管理着它们
@@ -45,6 +47,12 @@ public:
     void CheckAndWeakUp();
     //让工作线程等待（仅工作线程调用）
     void WorkerWait();
+public:
+    //增删查Conn
+    int AddConn(int fd, uint32_t id, Conn::TYPE type);
+    shared_ptr<Conn> GetConn(int fd);
+    bool RemoveConn(int fd);
+
 private:
     //工作线程
     int WORKER_NUM = 3;             //工作线程数
@@ -65,4 +73,16 @@ private:
     pthread_mutex_t sleepMtx; //互斥锁
     pthread_cond_t sleepCond; //条件变量
     int sleepCount = 0;       //休眠工作线程数
+private:
+    //socket线程
+    SocketWorker* socketWorker;
+    thread* socketThread;
+private:
+    //开启Socket线程
+    void StartSocket();
+private:
+    //Conn列表
+    //哈希表的键是uint32_t类型，代表服务的id，值是shared_ptr<Service>类型，是连接对象的智能指针
+    unordered_map<uint32_t, shared_ptr<Conn>> conns;
+    pthread_rwlock_t connsLock; // 读写锁
 };

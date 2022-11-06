@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/root/cc_project/src/SocketWorker.cpp" "/root/cc_project/build/CMakeFiles/sunnet.dir/src/SocketWorker.cpp.o"
   "/root/cc_project/src/Sunnet.cpp" "/root/cc_project/build/CMakeFiles/sunnet.dir/src/Sunnet.cpp.o"
   "/root/cc_project/src/Worker.cpp" "/root/cc_project/build/CMakeFiles/sunnet.dir/src/Worker.cpp.o"
   "/root/cc_project/src/cat.cpp" "/root/cc_project/build/CMakeFiles/sunnet.dir/src/cat.cpp.o"
