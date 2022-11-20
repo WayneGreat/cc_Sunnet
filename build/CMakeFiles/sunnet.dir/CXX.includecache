@@ -6,6 +6,8 @@
 
 #IncludeRegexTransform: 
 
+../include/Conn.h
+
 ../include/Msg.h
 memory
 -
@@ -19,6 +21,12 @@ Msg.h
 ../include/Msg.h
 
 ../include/SocketWorker.h
+sys/epoll.h
+-
+memory
+-
+Conn.h
+../include/Conn.h
 
 ../include/Sunnet.h
 vector
@@ -31,6 +39,8 @@ unordered_map
 -
 SocketWorker.h
 ../include/SocketWorker.h
+Conn.h
+../include/Conn.h
 
 ../include/Worker.h
 thread
@@ -45,9 +55,19 @@ Service.h
 /root/cc_project/src/SocketWorker.cpp
 SocketWorker.h
 /root/cc_project/src/SocketWorker.h
+Sunnet.h
+/root/cc_project/src/Sunnet.h
 iostream
 -
 unistd.h
+-
+assert.h
+-
+string.h
+-
+fcntl.h
+-
+sys/socket.h
 -
 
 /root/cc_project/src/Sunnet.cpp
@@ -55,6 +75,18 @@ iostream
 -
 Sunnet.h
 /root/cc_project/src/Sunnet.h
+assert.h
+-
+unistd.h
+-
+fcntl.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
 
 /root/cc_project/src/Worker.cpp
 iostream
@@ -75,6 +107,8 @@ cat.h
 /root/cc_project/src/main.cpp
 iostream
 -
+unistd.h
+-
 Sunnet.h
 /root/cc_project/src/Sunnet.h
 
@@ -84,5 +118,9 @@ Service.h
 Sunnet.h
 /root/cc_project/src/Sunnet.h
 iostream
+-
+unistd.h
+-
+string.h
 -
 

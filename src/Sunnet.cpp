@@ -1,6 +1,11 @@
 #include <iostream>
 #include "Sunnet.h"
 #include <assert.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 using namespace std;
 
 //单例
@@ -218,6 +223,7 @@ shared_ptr<Conn> Sunnet::GetConn(int fd) {
         }
     }
     pthread_rwlock_unlock(&connsLock);
+    return conn;
 }
 
 // 删除连接
@@ -229,4 +235,63 @@ bool Sunnet::RemoveConn(int fd) {
     }
     pthread_rwlock_unlock(&connsLock);
     return result == 1;
+}
+
+int Sunnet::Listen(uint32_t port, uint32_t serviceId) {
+    // 创建socket
+    int listenFd = socket(AF_INET, SOCK_STREAM, 0);
+    if (listenFd <= 0) {
+        cout << "listen error, listenFd <= 0 " << endl;
+        return -1;
+    }
+    // 设置为非阻塞
+    fcntl(listenFd, F_SETFL, O_NONBLOCK);
+
+    // struct sockaddr_in {
+    //     sa_family_t sin_family;  地址族
+    //     in_port_t sin_port;      端口号，使用网络字节序
+    //     struct in_addr sin_addr; ipv4地址结构体，使用网络字节序
+    // }
+
+    // struct in_addr {
+    //     uint32_t s_addr;
+    // }
+
+    // #include<netinet/in.h>
+    //  unsigned long int htol (unsigned long int hostlong);        主机字节序转换成网络字节序
+    //  unsigned short int htons (unsigned short int hostshort);    主机字节序转换成网络字节序
+    //  unsigned long int ntohl (unsigned long int netlong);        网络字节序转换成主机字节序
+    //  unsigned short int ntohs (unsigned short int netshort);     网络字节序转换成主机字节序
+
+    // bind
+    struct sockaddr_in addr; // 创建地址结构，根据创建socket时的地址协议族确定
+    addr.sin_family = AF_INET; // ipv4
+    addr.sin_port = htons(port);
+    addr.sin_addr.s_addr = htonl(INADDR_ANY); // 表示接收任意连接
+    int r = bind(listenFd, (struct sockaddr*)&addr, sizeof(addr));
+    if (r == -1) {
+        cout << "listen error, bind fail" << endl;
+        return -1;
+    }
+    // listen
+    r = listen(listenFd, 64);
+    if (r < 0) {
+        return -1;
+    }
+    // 添加到管理结构
+    AddConn(listenFd, serviceId, Conn::TYPE::LISTEN);
+    // epoll事件，跨线程
+    socketWorker->AddEvent(listenFd);
+    return listenFd;
+}
+
+void Sunnet::CloseConn(uint32_t fd) {
+    // 删除conn对象
+    bool succ = RemoveConn(fd);
+    // 关闭套接字
+    close(fd);
+    // 删除epoll对象套接字的监听（跨线程）
+    if (succ) {
+        socketWorker->RemoveEvent(fd);
+    }
 }

@@ -26,13 +26,13 @@ public:
     size_t size;                //消息内容大小
 };
 
-class ScoketAcceptMsg:public BaseMsg {
+class SocketAcceptMsg:public BaseMsg {
 public:
     int listenFd; // 监听
     int clientFd; // 新连接的客户端
 };
 
-class ScoketRWMsg:public BaseMsg {
+class SocketRWMsg:public BaseMsg {
 public:
     int fd; // 发生事件的套接字
     bool isRead = false;
