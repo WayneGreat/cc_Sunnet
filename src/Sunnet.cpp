@@ -1,11 +1,12 @@
 #include <iostream>
-#include "Sunnet.h"
 #include <assert.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <signal.h>
+#include "Sunnet.h"
 using namespace std;
 
 //单例
@@ -21,6 +22,13 @@ Sunnet::Sunnet() {
 //开启系统
 void Sunnet::Start() {
     // cout << "Hello Sunnet" << endl;
+
+    // 由于客户端断开连接后，服务器在还未完成四次挥手情况下还可以发送数据给客户端，这时客户端会回应复位（RST）信号
+    // 导致服务器下次发送数据给客户端时，操作系统会向服务器发PIPE信号，造成进程终止，因此需要忽略
+
+    // 忽略SIGPIPE信号
+    signal(SIGPIPE, SIG_IGN); 
+
     //锁
     pthread_rwlock_init(&servicesLock, NULL);
     pthread_spin_init(&globalLock, PTHREAD_PROCESS_PRIVATE);
@@ -58,6 +66,7 @@ void Sunnet::Wait() {
 //新建服务
 uint32_t Sunnet::NewService(shared_ptr<string> type) {
     auto srv = make_shared<Service>();
+    srv->type = type;
     pthread_rwlock_wrlock(&servicesLock);
     {
         srv->id = maxId;

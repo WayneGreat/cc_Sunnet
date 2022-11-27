@@ -45,7 +45,17 @@ shared_ptr<BaseMsg> Service::PopMsg() {
 void Service::Oninit() {
     cout << "[" << id << "] OnInit" << endl;
     // 开启监听
-    Sunnet::inst->Listen(8002, id);
+    // Sunnet::inst->Listen(8002, id);
+
+    // 新建Lua虚拟机
+    luaState = luaL_newstate();
+    luaL_openlibs(luaState);
+    // 执行Lua文件
+    string filename = "../service/" + *type + "/init.lua";
+    int isok = luaL_dofile(luaState, filename.data());
+    if (isok == 1) { // 若成功则返回0，失败为1
+        cout << "run lua fail: " << lua_tostring(luaState, -1) << endl;
+    }
 }
 
 //收到消息时触发
@@ -64,32 +74,41 @@ void Service::OnMsg(shared_ptr<BaseMsg> msg) {
     //     cout << "[" << id << "] OnMsg" << endl;
     // }
 
+    // 将read, write, close封装
+    // SERVICE
+    if (msg->type == BaseMsg::TYPE::SERVICE) {
+        auto m = dynamic_pointer_cast<ServiceMsg>(msg);
+        OnServiceMsg(m);
+    }
     // SOCKET_ACCEPT
-    if (msg->type == BaseMsg::TYPE::SCOKET_ACCEPT) {
+    else if (msg->type == BaseMsg::TYPE::SCOKET_ACCEPT) {
         auto m = dynamic_pointer_cast<SocketAcceptMsg>(msg);
-        cout << "new conn " << m->clientFd << endl;
+        OnAcceptMsg(m);
     }
     // SOCKET_RW
-    if (msg->type == BaseMsg::TYPE::SCOKET_RW) {
+    else if (msg->type == BaseMsg::TYPE::SCOKET_RW) {
         auto m = dynamic_pointer_cast<SocketRWMsg>(msg);
-        if (m->isRead) {
-            char buff[512];
-            int len = read(m->fd, &buff, 512);
-            if (len > 0 ) {
-                char writeBuff[3] = {'l', 'p', 'y'};
-                write(m->fd, &writeBuff, 3);
-            }
-            else {
-                cout << "close " << m->fd << " " << strerror(errno) << endl;
-                Sunnet::inst->CloseConn(m->fd);
-            }
-        }
+        // if (m->isRead) {
+        //     char buff[512];
+        //     int len = read(m->fd, &buff, 512);
+        //     if (len > 0 ) {
+        //         char writeBuff[3] = {'l', 'p', 'y'};
+        //         write(m->fd, &writeBuff, 3);
+        //     }
+        //     else {
+        //         cout << "close " << m->fd << " " << strerror(errno) << endl;
+        //         Sunnet::inst->CloseConn(m->fd);
+        //     }
+        // }
+        OnRWMsg(m);
     }
 }
 
 //退出服务时触发
 void Service::OnExit() {
     cout << "[" << id << "] OnExit" << endl;
+    // 关闭Lua虚拟机
+    lua_close(luaState);
 }
 
 //处理一条消息，返回值代表是否处理
@@ -120,4 +139,61 @@ void Service::SetInGlobal(bool isIn) {
         inGlobal = isIn;
     }
     pthread_spin_unlock(&inGlobalLock);
+}
+
+void Service::OnServiceMsg(shared_ptr<ServiceMsg> msg) {
+    cout << "OnServiceMsg" << endl;
+}
+
+void Service::OnAcceptMsg(shared_ptr<SocketAcceptMsg> msg) {
+    cout << "OnAcceptMsg" << msg->clientFd << endl;
+}
+
+void Service::OnRWMsg(shared_ptr<SocketRWMsg> msg) {
+    int fd = msg->fd;
+    //可读
+    if (msg->isRead) {
+        const int BUFFSIZE = 512;
+        char buff[BUFFSIZE];
+        int len = 0;
+
+        do {
+            len = read(fd, &buff, BUFFSIZE);
+            if (len > 0) {
+                OnSocketData(fd, buff, len);
+            }
+        } while(len == BUFFSIZE); 
+        // 如果恰好有512字节数据被read，下一处循环中，read会返回-1，并设置errno为EAGAIN，即不会进入读取失败的分支
+
+        if (len <= 0 && errno != EAGAIN) {
+            if (Sunnet::inst->GetConn(fd)) { // 若服务器主动断开连接，在处理时需要判断conn对象是否还未被释放，不然处理两次OnSocketClose会出错
+                OnSocketClose(fd);
+                Sunnet::inst->CloseConn(fd);
+            }
+        }
+    }
+    //可写
+    if (msg->isWrite) {
+        if(Sunnet::inst->GetConn(fd)) {
+            OnSocketWriteable(fd);
+        }
+    }
+}
+
+// 收到客户端消息
+void Service::OnSocketData(int fd, const char* buff, int len) {
+    cout << "OnSocketData" << fd << " buff: " << buff << endl;
+    //echo
+    char writeBuff[3] = {'l', 'p', 'y'};
+    write(fd, &writeBuff, 3);
+}
+
+// 套接字可写
+void Service::OnSocketWriteable(int fd) {
+    cout << "OnSocketWriteable" << endl;
+}
+
+// 关闭连接前
+void Service::OnSocketClose(int fd) {
+    cout << "OnSocketClose" << fd << endl;
 }

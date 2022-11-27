@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=c++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/root/cc_project/include 
+CXX_INCLUDES = -I/root/cc_project/include -I/root/cc_project/./3rd/lua-5.3.5/src 
 

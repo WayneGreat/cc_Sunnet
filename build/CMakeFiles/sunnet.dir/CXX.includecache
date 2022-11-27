@@ -6,6 +6,36 @@
 
 #IncludeRegexTransform: 
 
+.././3rd/lua-5.3.5/src/lauxlib.h
+stddef.h
+-
+stdio.h
+-
+lua.h
+.././3rd/lua-5.3.5/src/lua.h
+
+.././3rd/lua-5.3.5/src/lua.h
+stdarg.h
+-
+stddef.h
+-
+luaconf.h
+.././3rd/lua-5.3.5/src/luaconf.h
+
+.././3rd/lua-5.3.5/src/luaconf.h
+limits.h
+-
+stddef.h
+-
+stdint.h
+-
+assert.h
+-
+
+.././3rd/lua-5.3.5/src/lualib.h
+lua.h
+.././3rd/lua-5.3.5/src/lua.h
+
 ../include/Conn.h
 
 ../include/Msg.h
@@ -19,6 +49,12 @@ thread
 -
 Msg.h
 ../include/Msg.h
+lua.h
+../include/lua.h
+lauxlib.h
+../include/lauxlib.h
+lualib.h
+../include/lualib.h
 
 ../include/SocketWorker.h
 sys/epoll.h
@@ -73,8 +109,6 @@ sys/socket.h
 /root/cc_project/src/Sunnet.cpp
 iostream
 -
-Sunnet.h
-/root/cc_project/src/Sunnet.h
 assert.h
 -
 unistd.h
@@ -87,6 +121,10 @@ netinet/in.h
 -
 arpa/inet.h
 -
+signal.h
+-
+Sunnet.h
+/root/cc_project/src/Sunnet.h
 
 /root/cc_project/src/Worker.cpp
 iostream

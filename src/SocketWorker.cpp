@@ -111,6 +111,16 @@ void SocketWorker::OnAccept(shared_ptr<Conn> conn) {
     }
     // 设置非阻塞
     fcntl(clientFd, F_SETFL, O_NONBLOCK);
+
+    // 写缓冲区满问题 
+    // 解决方法一: 设置写缓冲区大小
+    unsigned long buffSize = 4294967295; // 4GB内存
+    if (setsockopt(clientFd, SOL_SOCKET, SO_SNDBUFFORCE, &buffSize, sizeof(buffSize)) < 0) {
+        cout << "OnAccept setsockopt Fail " << strerror(errno) << endl;
+    }
+    // 解决方法二: 自写缓冲区
+    // 使用ConnWriter.h模块
+
     // 添加连接对象
     Sunnet::inst->AddConn(clientFd, conn->serviceId, Conn::TYPE::CLIENT);
     // 添加到epoll监听列表

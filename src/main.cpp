@@ -49,7 +49,12 @@ int main() {
     Sunnet::inst->Start();//开启num个线程一直循环，直到触发退出
     // test();
     // TestSocketCtrl();
-    TestEcho();
+    // TestEcho();
+
+    // 启动main服务
+    auto t = make_shared<string>("main");
+    Sunnet::inst->NewService(t); // 嵌入lua脚本
+
     //开启系统后处理逻辑
     Sunnet::inst->Wait(); //主线程在一直等待子线程退出
     return 0;

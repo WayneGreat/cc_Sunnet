@@ -2,6 +2,11 @@
 #include <queue>
 #include <thread>
 #include "Msg.h"
+extern "C" {
+    #include "lua.h"
+    #include "lauxlib.h"
+    #include "lualib.h"
+}
 using namespace std;
 
 class Service {
@@ -37,4 +42,15 @@ public:
 private:
     //取出一条消息
     shared_ptr<BaseMsg> PopMsg();
+private:
+    //消息处理方法
+    void OnServiceMsg(shared_ptr<ServiceMsg> msg);
+    void OnAcceptMsg(shared_ptr<SocketAcceptMsg> msg);
+    void OnRWMsg(shared_ptr<SocketRWMsg> msg);
+    void OnSocketData(int fd, const char* buff, int len);
+    void OnSocketWriteable(int fd);
+    void OnSocketClose(int fd);
+private:
+    //lua虚拟机
+    lua_State *luaState;
 };
