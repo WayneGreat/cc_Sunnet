@@ -52,5 +52,5 @@ private:
     void OnSocketClose(int fd);
 private:
     //lua虚拟机
-    lua_State *luaState;
+    lua_State *luaState; // 代表Lua的运行状态
 };

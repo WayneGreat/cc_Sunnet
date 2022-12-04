@@ -123,6 +123,33 @@ sunnet/fast:
 	$(MAKE) -f CMakeFiles/sunnet.dir/build.make CMakeFiles/sunnet.dir/build
 .PHONY : sunnet/fast
 
+src/LuaAPI.o: src/LuaAPI.cpp.o
+
+.PHONY : src/LuaAPI.o
+
+# target to build an object file
+src/LuaAPI.cpp.o:
+	$(MAKE) -f CMakeFiles/sunnet.dir/build.make CMakeFiles/sunnet.dir/src/LuaAPI.cpp.o
+.PHONY : src/LuaAPI.cpp.o
+
+src/LuaAPI.i: src/LuaAPI.cpp.i
+
+.PHONY : src/LuaAPI.i
+
+# target to preprocess a source file
+src/LuaAPI.cpp.i:
+	$(MAKE) -f CMakeFiles/sunnet.dir/build.make CMakeFiles/sunnet.dir/src/LuaAPI.cpp.i
+.PHONY : src/LuaAPI.cpp.i
+
+src/LuaAPI.s: src/LuaAPI.cpp.s
+
+.PHONY : src/LuaAPI.s
+
+# target to generate assembly for a file
+src/LuaAPI.cpp.s:
+	$(MAKE) -f CMakeFiles/sunnet.dir/build.make CMakeFiles/sunnet.dir/src/LuaAPI.cpp.s
+.PHONY : src/LuaAPI.cpp.s
+
 src/SocketWorker.o: src/SocketWorker.cpp.o
 
 .PHONY : src/SocketWorker.o
@@ -294,6 +321,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... sunnet"
 	@echo "... edit_cache"
+	@echo "... src/LuaAPI.o"
+	@echo "... src/LuaAPI.i"
+	@echo "... src/LuaAPI.s"
 	@echo "... src/SocketWorker.o"
 	@echo "... src/SocketWorker.i"
 	@echo "... src/SocketWorker.s"

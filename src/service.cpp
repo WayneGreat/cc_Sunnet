@@ -1,5 +1,6 @@
 #include "Service.h"
 #include "Sunnet.h"
+#include "LuaAPI.h"
 #include <iostream>
 #include <unistd.h>
 #include <string.h>
@@ -50,11 +51,22 @@ void Service::Oninit() {
     // 新建Lua虚拟机
     luaState = luaL_newstate();
     luaL_openlibs(luaState);
+
+    // 注册Sunnet系统API：增强Lua脚本功能
+    LuaAPI::Register(luaState);
+
     // 执行Lua文件
     string filename = "../service/" + *type + "/init.lua";
     int isok = luaL_dofile(luaState, filename.data());
     if (isok == 1) { // 若成功则返回0，失败为1
         cout << "run lua fail: " << lua_tostring(luaState, -1) << endl;
+    }
+    // 调用Lua函数
+    lua_getglobal(luaState, "OnInit");
+    lua_pushinteger(luaState, id);
+    isok = lua_pcall(luaState, 1, 0, 0);
+    if (isok != 0) { // 返回值为0代表成功，否则代表失败
+        cout << "call lua OnInit fail " << lua_tostring(luaState, -1) << endl;
     }
 }
 
@@ -107,6 +119,12 @@ void Service::OnMsg(shared_ptr<BaseMsg> msg) {
 //退出服务时触发
 void Service::OnExit() {
     cout << "[" << id << "] OnExit" << endl;
+    // 调用Lua函数
+    lua_getglobal(luaState, "OnExit");
+    int isok = lua_pcall(luaState, 0, 0, 0);
+    if (isok != 0) { // 非0为失败
+        cout << "call lua OnExit fail " << lua_tostring(luaState, -1) << endl;
+    }
     // 关闭Lua虚拟机
     lua_close(luaState);
 }

@@ -38,6 +38,10 @@ lua.h
 
 ../include/Conn.h
 
+../include/LuaAPI.h
+lua.h
+../include/lua.h
+
 ../include/Msg.h
 memory
 -
@@ -87,6 +91,18 @@ Service.h
 ../include/Service.h
 
 ../include/cat.h
+
+/root/cc_project/src/LuaAPI.cpp
+LuaAPI.h
+/root/cc_project/src/LuaAPI.h
+Sunnet.h
+/root/cc_project/src/Sunnet.h
+stdint.h
+-
+unistd.h
+-
+string.h
+-
 
 /root/cc_project/src/SocketWorker.cpp
 SocketWorker.h
@@ -155,6 +171,8 @@ Service.h
 /root/cc_project/src/Service.h
 Sunnet.h
 /root/cc_project/src/Sunnet.h
+LuaAPI.h
+/root/cc_project/src/LuaAPI.h
 iostream
 -
 unistd.h
