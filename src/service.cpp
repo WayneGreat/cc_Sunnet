@@ -159,12 +159,29 @@ void Service::SetInGlobal(bool isIn) {
     pthread_spin_unlock(&inGlobalLock);
 }
 
+// 收到其他服务发来发消息
 void Service::OnServiceMsg(shared_ptr<ServiceMsg> msg) {
-    cout << "OnServiceMsg" << endl;
+    // cout << "OnServiceMsg" << endl;
+    // 调用Lua函数
+    lua_getglobal(luaState, "OnServiceMsg");
+    lua_pushinteger(luaState, msg->source);
+    lua_pushlstring(luaState, msg->buff.get(), msg->size);
+    int isok = lua_pcall(luaState, 2, 0, 0);
+    if (isok != 0) { // 返回值为0代表成功，否则为失败
+        cout << "call lua OnServiceMsg fail " << lua_tostring(luaState, -1) << endl;
+    }
 }
 
 void Service::OnAcceptMsg(shared_ptr<SocketAcceptMsg> msg) {
-    cout << "OnAcceptMsg" << msg->clientFd << endl;
+    // cout << "OnAcceptMsg" << msg->clientFd << endl;
+    // 调用Lua函数
+    lua_getglobal(luaState, "OnAcceptMsg");
+    lua_pushinteger(luaState, msg->listenFd);
+    lua_pushinteger(luaState, msg->clientFd);
+    int isok = lua_pcall(luaState, 2, 0, 0);
+    if (isok != 0) {
+        cout << "call lua OnAcceptMsg fail " << lua_tostring(luaState, -1) << endl;
+    }
 }
 
 void Service::OnRWMsg(shared_ptr<SocketRWMsg> msg) {
@@ -198,12 +215,20 @@ void Service::OnRWMsg(shared_ptr<SocketRWMsg> msg) {
     }
 }
 
-// 收到客户端消息
+// 收到客户端数据
 void Service::OnSocketData(int fd, const char* buff, int len) {
     cout << "OnSocketData" << fd << " buff: " << buff << endl;
     //echo
-    char writeBuff[3] = {'l', 'p', 'y'};
-    write(fd, &writeBuff, 3);
+    // char writeBuff[3] = {'l', 'p', 'y'};
+    // write(fd, &writeBuff, 3);
+    // 调用Lua函数
+    lua_getglobal(luaState , "OnSocketData");
+    lua_pushinteger(luaState, fd);
+    lua_pushlstring(luaState, buff, len);
+    int isok = lua_pcall(luaState, 2, 0, 0);
+    if (isok != 0) {
+        cout << "call lua OnSocketData fail " << lua_tostring(luaState, -1) << endl;
+    }
 }
 
 // 套接字可写
@@ -213,5 +238,12 @@ void Service::OnSocketWriteable(int fd) {
 
 // 关闭连接前
 void Service::OnSocketClose(int fd) {
-    cout << "OnSocketClose" << fd << endl;
+    // cout << "OnSocketClose" << fd << endl;
+    // 调用Lua函数
+    lua_getglobal(luaState, "OnSocketClose");
+    lua_pushinteger(luaState, fd);
+    int isok = lua_pcall(luaState, 1, 0, 0);
+    if (isok != 0) {
+        cout << "call lua OnSocketClose fail" << lua_tostring(luaState, -1) << endl;
+    }
 }
